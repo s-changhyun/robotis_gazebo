@@ -1,0 +1,21 @@
+<launch>
+
+  <arg name="x" default="0.0" />
+  <arg name="y" default="0.0" />
+  <arg name="z" default="0.35" />
+  <arg name="yaw" default="0.0" />
+
+  <!-- Setup controllers -->
+  <!--<rosparam file="$(find robotis_gazebo)/config/default_controllers.yaml" command="load" />-->
+
+  <!-- URDF and TF support -->
+  <param name="robot_description" command="$(find xacro)/xacro.py $(find robotis_gazebo)/robots/robotis_op3.gazebo.xacro" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+    <param name="publish_frequency" value="100.0"/>
+  </node>
+
+  <!-- Put a robot in gazebo, make it look pretty -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg yaw) -model robotis_op3 -param robot_description"/>
+
+</launch>

@@ -1,0 +1,121 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robotis_op3" >
+  <xacro:include filename="$(find robotis_description)/robots/robotis_op3.urdf" />
+
+  <gazebo reference="l_ank_roll_link">
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <mu1>10</mu1>
+    <mu2>10</mu2>
+    <fdir1>1 0 0</fdir1>
+    <maxVel>1.0</maxVel>
+    <minDepth>0.003</minDepth>
+  </gazebo>
+  <gazebo reference="r_ank_roll_link">
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <mu1>10</mu1>
+    <mu2>10</mu2>
+    <fdir1>1 0 0</fdir1>
+    <maxVel>1.0</maxVel>
+    <minDepth>0.003</minDepth>
+  </gazebo>
+
+  <gazebo reference="l_hip_yaw">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_hip_roll">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_hip_pitch">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_knee">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_ank_roll">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_ank_pitch">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_hip_yaw">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_hip_roll">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_hip_pitch">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_knee">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_ank_roll">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_ank_pitch">
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+
+  <!-- Load the plugin -->
+  <gazebo>
+    <plugin name="robotis_gazebo_plugin" filename="librobotis_gazebo_plugin.so"/>
+  </gazebo>
+
+  <!-- Add harness joint -->
+  <gazebo>
+    <plugin filename="libgazebo_ros_harness.so" name="harness">
+      <joint name="harness_joint" type="prismatic">
+        <pose>0 0 0 0 0 0</pose>
+        <parent>world</parent>
+        <child>body_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <dynamics>
+            <damping>10</damping>
+          </dynamics>
+          <limit>
+            <lower>-0.1</lower>
+            <upper>0.1</upper>
+            <effort>10000</effort>
+            <velocity>-1</velocity>
+            <stiffness>0</stiffness>
+            <dissipation>0</dissipation>
+          </limit>
+        </axis>
+        <physics>
+          <ode>
+            <implicit_spring_damper>1</implicit_spring_damper>
+            <limit>
+              <cfm>0.0</cfm>
+              <erp>0.0</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <winch>
+        <joint>harness_joint</joint>
+        <pos_pid>
+          <p>4e3</p>
+          <i>0</i>
+          <d>0</d>
+          <i_min>0</i_min>
+          <i_max>0</i_max>
+          <cmd_min>-1e4</cmd_min>
+          <cmd_max>1e4</cmd_max>
+        </pos_pid>
+        <vel_pid>
+          <p>4e3</p>
+          <i>0</i>
+          <d>0</d>
+          <i_min>0</i_min>
+          <i_max>0</i_max>
+          <cmd_min>0</cmd_min>
+          <cmd_max>1e4</cmd_max>
+        </vel_pid>
+      </winch>
+      <detach>harness_joint</detach>
+    </plugin>
+  </gazebo>
+
+</robot>
