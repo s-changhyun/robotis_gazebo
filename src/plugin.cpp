@@ -83,8 +83,7 @@ void RobotisGazeboPlugin::Load(
   model_ = parent;
 
   // Update each simulation iteration
-  update_ = event::Events::ConnectWorldUpdateBegin(
-              boost::bind(&RobotisGazeboPlugin::OnUpdate, this, _1));
+  update_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&RobotisGazeboPlugin::OnUpdate, this, _1));
 }
 
 void RobotisGazeboPlugin::Init()
@@ -124,8 +123,7 @@ void RobotisGazeboPlugin::Init()
   ROS_INFO("Finished initializing RobotisGazeboPlugin");
 }
 
-void RobotisGazeboPlugin::OnUpdate(
-  const common::UpdateInfo& info)
+void RobotisGazeboPlugin::OnUpdate(const common::UpdateInfo& info)
 {
   if (!ros::ok())
     return;
