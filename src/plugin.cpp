@@ -32,12 +32,13 @@
 
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
-#include <robot_controllers_interface/controller_manager.h>
+//#include <robot_controllers_interface/controller_manager.h>
 #include <robotis_gazebo/joint_handle.h>
 #include <gazebo/common/common.hh>
 #include <gazebo/physics/physics.hh>
 #include <gazebo/gazebo.hh>
 #include <urdf/model.h>
+#include <string.h>
 
 namespace gazebo
 {
@@ -58,7 +59,7 @@ private:
   common::Time prevUpdateTime;
 
   std::vector<JointHandlePtr> joints_;
-  robot_controllers::ControllerManager controller_manager_;
+//  robot_controllers::ControllerManager controller_manager_;
   ros::Time last_update_time_;
 
   ros::Publisher joint_state_pub_;
@@ -104,18 +105,22 @@ void RobotisGazeboPlugin::Init()
     //get effort limit and continuous state from URDF
     boost::shared_ptr<const urdf::Joint> urdf_joint = urdfmodel.getJoint((*it)->GetName());
 
+    std::string joint_name = urdf_joint->name;
+
+    ROS_INFO("%s", joint_name.c_str());
+
     JointHandlePtr handle(new JointHandle(*it,
                                           urdf_joint->limits->velocity,
                                           urdf_joint->limits->effort,
                                           (urdf_joint->type == urdf::Joint::CONTINUOUS)));
     joints_.push_back(handle);
-    robot_controllers::JointHandlePtr h(handle);
-    controller_manager_.addJointHandle(h);
+    robotis_framework::JointHandlePtr h(handle);
+//    controller_manager_.addJointHandle(h);
   }
 
   // Init controllers
-  ros::NodeHandle pnh("~");
-  controller_manager_.init(pnh);
+//  ros::NodeHandle pnh("~");
+//  controller_manager_.init(pnh);
 
   // Publish joint states only after controllers are fully ready
   joint_state_pub_ = nh_.advertise<sensor_msgs::JointState>("joint_states", 10);
@@ -136,7 +141,7 @@ void RobotisGazeboPlugin::OnUpdate(const common::UpdateInfo& info)
   ros::Time now = ros::Time(currTime.Double());
 
   // Update controllers
-  controller_manager_.update(now, ros::Duration(dt));
+//  controller_manager_.update(now, ros::Duration(dt));
 
   // Update joints back into Gazebo
   for (size_t i = 0; i < joints_.size(); ++i)

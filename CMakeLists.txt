@@ -10,8 +10,8 @@ find_package(catkin
     angles
     control_toolbox
     gazebo_ros
-    robot_controllers
-    robot_controllers_interface
+    robotis_controller
+    urdf
 )
 
 include_directories(
@@ -28,8 +28,8 @@ catkin_package(
   CATKIN_DEPENDS
     control_toolbox
     gazebo_ros
-    robot_controllers
-    robot_controllers_interface
+    robotis_controller
+    urdf
   DEPENDS
     gazebo
   LIBRARIES

@@ -37,13 +37,13 @@
 #include <angles/angles.h>
 #include <control_toolbox/pid.h>
 #include <gazebo/physics/physics.hh>
-#include <robot_controllers_interface/joint_handle.h>
-#include <robot_controllers_interface/controller_manager.h>
+#include <robotis_controller/joint_handle.h>
+//#include <robot_controllers_interface/controller_manager.h>
 
 namespace gazebo
 {
 
-class JointHandle : public robot_controllers::JointHandle
+class JointHandle : public robotis_framework::JointHandle
 {
   enum CommandState
   {
