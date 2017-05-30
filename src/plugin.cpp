@@ -28,17 +28,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *******************************************************************************/
 
-// Author: sch
-
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
-//#include <robot_controllers_interface/controller_manager.h>
-#include <robotis_gazebo/joint_handle.h>
 #include <gazebo/common/common.hh>
 #include <gazebo/physics/physics.hh>
 #include <gazebo/gazebo.hh>
 #include <urdf/model.h>
 #include <string.h>
+
+#include <robotis_controller/robotis_controller.h>
+#include <robotis_gazebo/joint_handle.h>
+
+/* Sensor Module Header */
+
+/* Motion Module Header */
+#include "robotis_op3_motion_module/motion_module.h"
 
 namespace gazebo
 {
@@ -59,13 +63,14 @@ private:
   common::Time prevUpdateTime;
 
   std::vector<JointHandlePtr> joints_;
-//  robot_controllers::ControllerManager controller_manager_;
+//  robotis_framework::RobotisController controller_manager_;
+  robotis_framework::RobotisController *controller_ = robotis_framework::RobotisController::getInstance();
   ros::Time last_update_time_;
 
   ros::Publisher joint_state_pub_;
 
   ros::NodeHandle nh_;
-  ros::Time last_publish_;
+//  ros::Time last_publish_;
 };
 
 RobotisGazeboPlugin::RobotisGazeboPlugin()
@@ -91,7 +96,7 @@ void RobotisGazeboPlugin::Init()
 {
   // Init time stuff
   prevUpdateTime = model_->GetWorld()->GetSimTime();
-  last_publish_ = ros::Time(prevUpdateTime.Double());
+//  last_publish_ = ros::Time(prevUpdateTime.Double());
   urdf::Model urdfmodel;
   if (!urdfmodel.initParam("robot_description"))
   {
@@ -105,25 +110,60 @@ void RobotisGazeboPlugin::Init()
     //get effort limit and continuous state from URDF
     boost::shared_ptr<const urdf::Joint> urdf_joint = urdfmodel.getJoint((*it)->GetName());
 
-    std::string joint_name = urdf_joint->name;
-
-    ROS_INFO("%s", joint_name.c_str());
-
     JointHandlePtr handle(new JointHandle(*it,
                                           urdf_joint->limits->velocity,
                                           urdf_joint->limits->effort,
                                           (urdf_joint->type == urdf::Joint::CONTINUOUS)));
     joints_.push_back(handle);
     robotis_framework::JointHandlePtr h(handle);
-//    controller_manager_.addJointHandle(h);
+    controller_->addJointHandle(h);
   }
 
   // Init controllers
-//  ros::NodeHandle pnh("~");
-//  controller_manager_.init(pnh);
+  /* Load ROS Parameter */
+  std::string offset_file = nh_.param<std::string>("offset_file_path", "");
+  std::string robot_file  = nh_.param<std::string>("robot_file_path", "");
+
+  std::string init_file   = nh_.param<std::string>("init_file_path", "");
+
+  /* gazebo simulation */
+  controller_->gazebo_mode_ = nh_.param<bool>("is_gazebo", false);
+  if(controller_->gazebo_mode_ == true)
+  {
+      ROS_WARN("SET TO GAZEBO MODE!");
+      std::string robot_name = nh_.param<std::string>("gazebo_robot_name", "");
+      if(robot_name != "")
+          controller_->gazebo_robot_name_ = robot_name;
+  }
+
+  if(robot_file == "")
+  {
+      ROS_ERROR("NO robot file path in the ROS parameters.");
+      return;
+  }
+
+  if(controller_->initialize(robot_file, init_file) == false)
+  {
+      ROS_ERROR("ROBOTIS Controller Initialize Fail!");
+      return;
+  }
+
+  if(offset_file != "")
+      controller_->loadOffset(offset_file);
+
+  sleep(1);
+
+  /* Add Sensor Module */
+
+  /* Add Motion Module */
+  controller_->addMotionModule((robotis_framework::MotionModule*)robotis_op3::MotionModule::getInstance());
+
+  controller_->startTimer();
+
+
 
   // Publish joint states only after controllers are fully ready
-  joint_state_pub_ = nh_.advertise<sensor_msgs::JointState>("joint_states", 10);
+//  joint_state_pub_ = nh_.advertise<sensor_msgs::JointState>("/robotis_op3/joint_states", 10);
 
   ROS_INFO("Finished initializing RobotisGazeboPlugin");
 }
@@ -141,29 +181,29 @@ void RobotisGazeboPlugin::OnUpdate(const common::UpdateInfo& info)
   ros::Time now = ros::Time(currTime.Double());
 
   // Update controllers
-//  controller_manager_.update(now, ros::Duration(dt));
+  controller_->update(now, ros::Duration(dt));
 
   // Update joints back into Gazebo
   for (size_t i = 0; i < joints_.size(); ++i)
     joints_[i]->update(now, ros::Duration(dt));
 
   // Limit publish rate
-  if (now - last_publish_ < ros::Duration(0.01))
-    return;
+//  if (now - last_publish_ < ros::Duration(0.01))
+//    return;
 
   // Publish joint_state message
-  sensor_msgs::JointState js;
-  js.header.stamp = ros::Time(currTime.Double());
-  for (size_t i = 0; i < joints_.size(); ++i)
-  {
-    js.name.push_back(joints_[i]->getName());
-    js.position.push_back(joints_[i]->getPosition());
-    js.velocity.push_back(joints_[i]->getVelocity());
-    js.effort.push_back(joints_[i]->getEffort());
-  }
-  joint_state_pub_.publish(js);
+//  sensor_msgs::JointState js;
+//  js.header.stamp = ros::Time(currTime.Double());
+//  for (size_t i = 0; i < joints_.size(); ++i)
+//  {
+//    js.name.push_back(joints_[i]->getName());
+//    js.position.push_back(joints_[i]->getPosition());
+//    js.velocity.push_back(joints_[i]->getVelocity());
+//    js.effort.push_back(joints_[i]->getEffort());
+//  }
+//  joint_state_pub_.publish(js);
 
-  last_publish_ = now;
+//  last_publish_ = now;
 }
 
 GZ_REGISTER_MODEL_PLUGIN(RobotisGazeboPlugin)

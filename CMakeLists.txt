@@ -10,13 +10,27 @@ find_package(catkin
     angles
     control_toolbox
     gazebo_ros
-    robotis_controller
     urdf
+    roscpp
+    dynamixel_sdk
+    robotis_framework_common
+    robotis_device
+    robotis_controller
+    robotis_controller_msgs
+    robotis_math
+    cmake_modules
+    robotis_op3_kinematics_dynamics
+    #scilab_optimization
+    #robotis_op3_online_walking
+    robotis_op3_motion_module
 )
+
+find_package(Eigen REQUIRED)
 
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${Eigen_INCLUDE_DIRS}
   ${GAZEBO_INCLUDE_DIRS}
 )
 
@@ -28,7 +42,6 @@ catkin_package(
   CATKIN_DEPENDS
     control_toolbox
     gazebo_ros
-    robotis_controller
     urdf
   DEPENDS
     gazebo

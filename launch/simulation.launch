@@ -5,6 +5,16 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
 
+  <param name="is_gazebo"                value="true"    type="bool"/>
+  <param name="gazebo_robot_name"        value="robotis_op3"/>
+
+  <param name="offset_file_path"         value="$(find robotis_op3_manager)/config/offset.yaml"/>
+  <param name="robot_file_path"          value="$(find robotis_op3_manager)/config/ROBOTIS-OP3.robot"/>
+  <param name="init_file_path"           value="$(find robotis_op3_manager)/config/dxl_init.yaml"/>
+
+  <param name="ft_data_path"             value="$(find robotis_op3_manager)/config/ft_data.yaml"/>
+  <param name="ft_calibration_data_path" value="$(find robotis_op3_manager)/config/ft_calibration_data.yaml"/>
+
   <!-- Start Gazebo with a blank world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="debug" value="$(arg debug)" />

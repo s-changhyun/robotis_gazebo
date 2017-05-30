@@ -16,7 +16,6 @@
   <build_depend>control_toolbox</build_depend>
   <build_depend>gazebo_ros</build_depend>
   <build_depend>libgazebo7-dev</build_depend>
-  <build_depend>robotis_controller</build_depend>
   <build_depend>urdf</build_depend>
 
   <run_depend>actionlib</run_depend>
@@ -29,9 +28,22 @@
   <run_depend>geometry_msgs</run_depend>
   <run_depend>image_proc</run_depend>
   <run_depend>nodelet</run_depend>
-  <run_depend>robotis_controller</run_depend>
   <run_depend>rgbd_launch</run_depend>
   <run_depend>trajectory_msgs</run_depend>
   <run_depend>xacro</run_depend>
   <run_depend>urdf</run_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>dynamixel_sdk</build_depend>
+  <build_depend>robotis_framework_common</build_depend>
+  <build_depend>robotis_device</build_depend>
+  <build_depend>robotis_controller</build_depend>
+  <build_depend>robotis_controller_msgs</build_depend>
+  <!--  <build_depend>robotis_op3_online_walking</build_depend>-->
+  <build_depend>cmake_modules</build_depend>
+  <build_depend>robotis_op3_motion_module</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>robotis_controller</run_depend>
+  <!--  <run_depend>robotis_op3_online_walking</run_depend>-->
+
 </package>

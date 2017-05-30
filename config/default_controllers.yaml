@@ -1,21 +1,4 @@
-left_leg_controller:
-  gravity_compensation:
-    type: "robot_controllers/GravityCompensation"
-    root: "body_link"
-    tip: "l_ank_roll_link"
-    autostart: true
-
-right_leg_controller:
-  gravity_compensation:
-    type: "robot_controllers/GravityCompensation"
-    root: "body_link"
-    tip: "r_ank_roll_link"
-    autostart: true
-
 gazebo:
-  default_controllers:
-    - "left_leg_controller/gravity_compensation"
-    - "right_leg_controller/gravity_compensation"
   l_hip_yaw:
     position:
       p: 0.0
@@ -128,7 +111,7 @@ gazebo:
       i_clamp: 0.0
   r_ank_pitch:
     position:
-      p: 0.0
+      p: 100.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
