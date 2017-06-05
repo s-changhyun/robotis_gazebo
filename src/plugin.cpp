@@ -62,15 +62,19 @@ private:
   event::ConnectionPtr update_;
   common::Time prevUpdateTime;
 
+  int cnt_;
+
   std::vector<JointHandlePtr> joints_;
-//  robotis_framework::RobotisController controller_manager_;
+  //  robotis_framework::RobotisController controller_manager_;
   robotis_framework::RobotisController *controller_ = robotis_framework::RobotisController::getInstance();
   ros::Time last_update_time_;
 
   ros::Publisher joint_state_pub_;
 
   ros::NodeHandle nh_;
-//  ros::Time last_publish_;
+  ros::Time last_publish_;
+
+  boost::mutex queue_mutex_;
 };
 
 RobotisGazeboPlugin::RobotisGazeboPlugin()
@@ -82,8 +86,8 @@ RobotisGazeboPlugin::~RobotisGazeboPlugin()
 }
 
 void RobotisGazeboPlugin::Load(
-  physics::ModelPtr parent,
-  sdf::ElementPtr sdf)
+    physics::ModelPtr parent,
+    sdf::ElementPtr sdf)
 {
   // Need to hang onto model
   model_ = parent;
@@ -94,13 +98,15 @@ void RobotisGazeboPlugin::Load(
 
 void RobotisGazeboPlugin::Init()
 {
+  cnt_ = 0;
+
   // Init time stuff
   prevUpdateTime = model_->GetWorld()->GetSimTime();
-//  last_publish_ = ros::Time(prevUpdateTime.Double());
+  last_publish_ = ros::Time(prevUpdateTime.Double());
   urdf::Model urdfmodel;
   if (!urdfmodel.initParam("robot_description"))
   {
-    ROS_ERROR("Failed to parse URDF");  
+    ROS_ERROR("Failed to parse URDF");
   }
 
   // Init joint handles
@@ -110,13 +116,17 @@ void RobotisGazeboPlugin::Init()
     //get effort limit and continuous state from URDF
     boost::shared_ptr<const urdf::Joint> urdf_joint = urdfmodel.getJoint((*it)->GetName());
 
-    JointHandlePtr handle(new JointHandle(*it,
-                                          urdf_joint->limits->velocity,
-                                          urdf_joint->limits->effort,
-                                          (urdf_joint->type == urdf::Joint::CONTINUOUS)));
-    joints_.push_back(handle);
-    robotis_framework::JointHandlePtr h(handle);
-    controller_->addJointHandle(h);
+    if (urdf_joint->type != urdf::Joint::FIXED)
+    {
+      JointHandlePtr handle(new JointHandle(*it,
+                                            urdf_joint->limits->velocity,
+                                            urdf_joint->limits->effort,
+                                            (urdf_joint->type == urdf::Joint::CONTINUOUS)));
+
+      joints_.push_back(handle);
+      robotis_framework::JointHandlePtr h(handle);
+      controller_->addJointHandle(h);
+    }
   }
 
   // Init controllers
@@ -130,26 +140,26 @@ void RobotisGazeboPlugin::Init()
   controller_->gazebo_mode_ = nh_.param<bool>("is_gazebo", false);
   if(controller_->gazebo_mode_ == true)
   {
-      ROS_WARN("SET TO GAZEBO MODE!");
-      std::string robot_name = nh_.param<std::string>("gazebo_robot_name", "");
-      if(robot_name != "")
-          controller_->gazebo_robot_name_ = robot_name;
+    ROS_WARN("SET TO GAZEBO MODE!");
+    std::string robot_name = nh_.param<std::string>("gazebo_robot_name", "");
+    if(robot_name != "")
+      controller_->gazebo_robot_name_ = robot_name;
   }
 
   if(robot_file == "")
   {
-      ROS_ERROR("NO robot file path in the ROS parameters.");
-      return;
+    ROS_ERROR("NO robot file path in the ROS parameters.");
+    return;
   }
 
   if(controller_->initialize(robot_file, init_file) == false)
   {
-      ROS_ERROR("ROBOTIS Controller Initialize Fail!");
-      return;
+    ROS_ERROR("ROBOTIS Controller Initialize Fail!");
+    return;
   }
 
   if(offset_file != "")
-      controller_->loadOffset(offset_file);
+    controller_->loadOffset(offset_file);
 
   sleep(1);
 
@@ -157,13 +167,10 @@ void RobotisGazeboPlugin::Init()
 
   /* Add Motion Module */
   controller_->addMotionModule((robotis_framework::MotionModule*)robotis_op3::MotionModule::getInstance());
-
   controller_->startTimer();
 
-
-
   // Publish joint states only after controllers are fully ready
-//  joint_state_pub_ = nh_.advertise<sensor_msgs::JointState>("/robotis_op3/joint_states", 10);
+  joint_state_pub_ = nh_.advertise<sensor_msgs::JointState>("/joint_states", 10);
 
   ROS_INFO("Finished initializing RobotisGazeboPlugin");
 }
@@ -180,30 +187,54 @@ void RobotisGazeboPlugin::OnUpdate(const common::UpdateInfo& info)
   double dt = stepTime.Double();
   ros::Time now = ros::Time(currTime.Double());
 
+  //  ROS_INFO("---");
+
+  queue_mutex_.lock();
+
+  //  ros::Time begin = ros::Time::now();
+  //  ros::Duration time_duration;
+
+  //  if (cnt_ < 10)
+  //  {
+  //    ROS_INFO("========== cnt : %d ==========", cnt_);
+
   // Update controllers
   controller_->update(now, ros::Duration(dt));
 
   // Update joints back into Gazebo
   for (size_t i = 0; i < joints_.size(); ++i)
+  {
+    //      ROS_INFO("joints_size : %d", (int) joints_.size());
+
+    //      ROS_INFO("[Plugin] joint name : %s", (joints_[i]->getName()).c_str());
     joints_[i]->update(now, ros::Duration(dt));
+  }
+
+  //  time_duration = ros::Time::now() - begin;
+  //  ROS_INFO("time : %f", time_duration.sec + time_duration.nsec * 1e-9);
+  //  }
+
+  queue_mutex_.unlock();
+
+  //  cnt_++;
 
   // Limit publish rate
-//  if (now - last_publish_ < ros::Duration(0.01))
-//    return;
+  //  if (now - last_publish_ < ros::Duration(0.01))
+  //    return;
 
-  // Publish joint_state message
-//  sensor_msgs::JointState js;
-//  js.header.stamp = ros::Time(currTime.Double());
-//  for (size_t i = 0; i < joints_.size(); ++i)
-//  {
-//    js.name.push_back(joints_[i]->getName());
-//    js.position.push_back(joints_[i]->getPosition());
-//    js.velocity.push_back(joints_[i]->getVelocity());
-//    js.effort.push_back(joints_[i]->getEffort());
-//  }
-//  joint_state_pub_.publish(js);
+  //  // Publish joint_state message
+  //  sensor_msgs::JointState js;
+  //  js.header.stamp = ros::Time(currTime.Double());
+  //  for (size_t i = 0; i < joints_.size(); ++i)
+  //  {
+  //    js.name.push_back(joints_[i]->getName());
+  //    js.position.push_back(joints_[i]->getPosition());
+  //    js.velocity.push_back(joints_[i]->getVelocity());
+  //    js.effort.push_back(joints_[i]->getEffort());
+  //  }
+  //  joint_state_pub_.publish(js);
 
-//  last_publish_ = now;
+  //  last_publish_ = now;
 }
 
 GZ_REGISTER_MODEL_PLUGIN(RobotisGazeboPlugin)

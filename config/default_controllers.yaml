@@ -1,133 +1,133 @@
 gazebo:
   l_hip_yaw:
     position:
-      p: 0.0
+      p: 10.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 1.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   l_hip_roll:
     position:
-      p: 0.0
+      p: 10.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 1.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   l_hip_pitch:
     position:
-      p: 0.0
+      p: 25.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 3.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   l_knee:
     position:
-      p: 0.0
+      p: 25.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 3.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   l_ank_pitch:
     position:
-      p: 0.0
+      p: 25.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 3.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   l_ank_roll:
     position:
-      p: 0.0
+      p: 10.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 1.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   r_hip_yaw:
     position:
-      p: 0.0
+      p: 10.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 1.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   r_hip_roll:
     position:
-      p: 0.0
+      p: 10.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 1.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   r_hip_pitch:
     position:
-      p: 0.0
+      p: 25.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 3.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   r_knee:
     position:
-      p: 0.0
+      p: 25.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 3.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   r_ank_pitch:
     position:
-      p: 100.0
+      p: 25.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 3.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
   r_ank_roll:
     position:
-      p: 0.0
+      p: 10.0
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5
     velocity:
-      p: 0.0
+      p: 1.5
       d: 0.0
-      i: 0.0
-      i_clamp: 0.0
+      i: 0.1
+      i_clamp: 0.5

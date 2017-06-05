@@ -7,8 +7,28 @@
     <mu1>10</mu1>
     <mu2>10</mu2>
     <fdir1>1 0 0</fdir1>
+    <maxVel>0.1</maxVel>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+  <gazebo reference="r_ank_roll_link">
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <mu1>10</mu1>
+    <mu2>10</mu2>
+    <fdir1>1 0 0</fdir1>
+    <maxVel>0.1</maxVel>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+<!--
+  <gazebo reference="l_ank_roll_link">
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <mu1>10</mu1>
+    <mu2>10</mu2>
+    <fdir1>1 0 0</fdir1>
     <maxVel>1.0</maxVel>
-    <minDepth>0.003</minDepth>
+    <minDepth>0.001</minDepth>
   </gazebo>
   <gazebo reference="r_ank_roll_link">
     <kp>500000.0</kp>
@@ -17,9 +37,9 @@
     <mu2>10</mu2>
     <fdir1>1 0 0</fdir1>
     <maxVel>1.0</maxVel>
-    <minDepth>0.003</minDepth>
+    <minDepth>0.001</minDepth>
   </gazebo>
-
+-->
   <gazebo reference="l_hip_yaw">
     <implicitSpringDamper>1</implicitSpringDamper>
   </gazebo>
@@ -56,7 +76,68 @@
   <gazebo reference="r_ank_pitch">
     <implicitSpringDamper>1</implicitSpringDamper>
   </gazebo>
-
+<!--
+  <gazebo reference="l_hip_yaw">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_hip_roll">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_hip_pitch">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_knee">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_ank_roll">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="l_ank_pitch">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_hip_yaw">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_hip_roll">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_hip_pitch">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_knee">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_ank_roll">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+  <gazebo reference="r_ank_pitch">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <implicitSpringDamper>1</implicitSpringDamper>
+  </gazebo>
+-->
   <!-- Load the plugin -->
   <gazebo>
     <plugin name="robotis_gazebo_plugin" filename="librobotis_gazebo_plugin.so"/>
@@ -117,5 +198,6 @@
       <detach>harness_joint</detach>
     </plugin>
   </gazebo>
+
 
 </robot>
