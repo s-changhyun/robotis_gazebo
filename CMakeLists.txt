@@ -21,7 +21,7 @@ find_package(catkin
     cmake_modules
     robotis_op3_kinematics_dynamics
     #scilab_optimization
-    #robotis_op3_online_walking
+    robotis_op3_online_walking
     robotis_op3_motion_module
 )
 

@@ -123,10 +123,32 @@ void RobotisGazeboPlugin::Init()
                                             urdf_joint->limits->effort,
                                             (urdf_joint->type == urdf::Joint::CONTINUOUS)));
 
-      joints_.push_back(handle);
-      robotis_framework::JointHandlePtr h(handle);
-      controller_->addJointHandle(h);
+//      if (handle->getName() == "l_leg_ft" || handle->getName() == "r_leg_ft")
+//      {}
+//      else
+//      {
+        joints_.push_back(handle);
+        robotis_framework::JointHandlePtr h(handle);
+        controller_->addJointHandle(h);
+//      }
     }
+
+//    std::string joint_name = urdf_joint->name;
+//    if (joint_name == "l_leg_ft" || joint_name == "r_leg_ft")
+//    {}
+//    else
+//    {
+//      if (urdf_joint->type != urdf::Joint::FIXED)
+//      {
+//        JointHandlePtr handle(new JointHandle(*it,
+//                                              urdf_joint->limits->velocity,
+//                                              urdf_joint->limits->effort,
+//                                              (urdf_joint->type == urdf::Joint::CONTINUOUS)));
+//        joints_.push_back(handle);
+//        robotis_framework::JointHandlePtr h(handle);
+//        controller_->addJointHandle(h);
+//      }
+//    }
   }
 
   // Init controllers

@@ -6,9 +6,8 @@
     Gazebo package for Robotis.
   </description>
   <author>sch</author>
-  <maintainer email="sch@robotis.com">Michael Ferguson</maintainer>
+  <maintainer email="sch@robotis.com">sch</maintainer>
   <license>BSD</license>
-  <url>http://ros.org/wiki/robotis_gazebo</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 
@@ -39,11 +38,11 @@
   <build_depend>robotis_device</build_depend>
   <build_depend>robotis_controller</build_depend>
   <build_depend>robotis_controller_msgs</build_depend>
-  <!--  <build_depend>robotis_op3_online_walking</build_depend>-->
+  <build_depend>robotis_op3_online_walking</build_depend>
   <build_depend>cmake_modules</build_depend>
   <build_depend>robotis_op3_motion_module</build_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>robotis_controller</run_depend>
-  <!--  <run_depend>robotis_op3_online_walking</run_depend>-->
+  <run_depend>robotis_op3_online_walking</run_depend>
 
 </package>
