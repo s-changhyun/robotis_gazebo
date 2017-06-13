@@ -207,25 +207,22 @@ public:
     double effort = 0.0;
     if (mode_ == MODE_CONTROL_POSITION)
     {
+//      double p_error = angles::shortest_angular_distance(getPosition(), desired_position_);
+
+//      double v = position_pid_.computeCommand(p_error, dt); //+ desired_velocity_;
+////      double t = velocity_pid_.computeCommand(desired_velocity_ - actual_velocity_, dt);
+
+////      double vt = std::min(getVelocityMax(), std::max(-getVelocityMax(), v + t));
+
+//      effort = v + desired_effort_;
+
       double p_error = angles::shortest_angular_distance(getPosition(), desired_position_);
 
-//      ROS_INFO("p_error : %f", p_error);
-
       double v = position_pid_.computeCommand(p_error, dt) + desired_velocity_;
-
-//      ROS_INFO("v : %f", v);
-
       v = std::min(getVelocityMax(), std::max(-getVelocityMax(), v));
 
-//      ROS_INFO("v : %f", v);
-
       double t = velocity_pid_.computeCommand(v - actual_velocity_, dt);
-
-//      ROS_INFO("t : %f", t);
-
       effort = t + desired_effort_;
-
-//      ROS_INFO("effort : %f", effort);
     }
     else if (mode_ == MODE_CONTROL_VELOCITY)
     {
