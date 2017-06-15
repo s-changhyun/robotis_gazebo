@@ -29,7 +29,7 @@
     <mu2>10.0</mu2>
     <fdir1>1 0 0</fdir1>
     <maxVel>1.0</maxVel>
-    <minDepth>0.001</minDepth>
+    <minDepth>0.0</minDepth>
   </gazebo>
   <gazebo reference="r_foot_link">
     <kp>100000.0</kp>
@@ -38,7 +38,7 @@
     <mu2>10.0</mu2>
     <fdir1>1 0 0</fdir1>
     <maxVel>1.0</maxVel>
-    <minDepth>0.001</minDepth>
+    <minDepth>0.0</minDepth>
   </gazebo>
 
   <gazebo reference="l_hip_yaw">
