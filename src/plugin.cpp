@@ -211,7 +211,7 @@ void RobotisGazeboPlugin::OnUpdate(const common::UpdateInfo& info)
 
   //  ROS_INFO("---");
 
-  queue_mutex_.lock();
+//  queue_mutex_.lock();
 
   //  ros::Time begin = ros::Time::now();
   //  ros::Duration time_duration;
@@ -236,7 +236,7 @@ void RobotisGazeboPlugin::OnUpdate(const common::UpdateInfo& info)
   //  ROS_INFO("time : %f", time_duration.sec + time_duration.nsec * 1e-9);
   //  }
 
-  queue_mutex_.unlock();
+//  queue_mutex_.unlock();
 
   //  cnt_++;
 
