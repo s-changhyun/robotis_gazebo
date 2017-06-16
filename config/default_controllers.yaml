@@ -24,115 +24,115 @@ gazebo:
 
   l_hip_roll:
     position:
-      p: 50.0
+      p: 60.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
-      p: 1.0
+      p: 1.5
       d: 0.0
-      i: 0.1
+      i: 0.2
       i_clamp: 10.0
   r_hip_roll:
     position:
-      p: 50.0
+      p: 60.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
-      p: 1.0
+      p: 1.5
       d: 0.0
-      i: 0.1
+      i: 0.2
       i_clamp: 10.0
 
   l_hip_pitch:
     position:
-      p: 50.0
-      d: 0.01
+      p: 70.0
+      d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
       p: 1.0
       d: 0.0
-      i: 0.1
+      i: 0.3
       i_clamp: 10.0
   r_hip_pitch:
     position:
-      p: 50.0
+      p: 70.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
       p: 1.0
       d: 0.0
-      i: 0.1
+      i: 0.3
       i_clamp: 10.0
 
   l_knee:
     position:
-      p: 50.0
+      p: 70.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
       p: 1.0
       d: 0.0
-      i: 0.1
+      i: 0.3
       i_clamp: 10.0
   r_knee:
     position:
-      p: 50.0
+      p: 70.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
       p: 1.0
       d: 0.0
-      i: 0.1
+      i: 0.3
       i_clamp: 10.0
 
   l_ank_pitch:
     position:
-      p: 50.0
+      p: 70.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
       p: 2.5
       d: 0.0
-      i: 0.1
+      i: 0.3
       i_clamp: 10.0
   r_ank_pitch:
     position:
-      p: 50.0
+      p: 70.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
       p: 2.5
       d: 0.0
-      i: 0.1
+      i: 0.3
       i_clamp: 10.0
 
   l_ank_roll:
     position:
-      p: 50.0
+      p: 45.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
-      p: 1.0
+      p: 0.9
       d: 0.0
-      i: 0.1
+      i: 0.2
       i_clamp: 10.0
   r_ank_roll:
     position:
-      p: 50.0
+      p: 45.0
       d: 0.0
       i: 0.0
       i_clamp: 0.0
     velocity:
-      p: 1.0
+      p: 0.9
       d: 0.0
-      i: 0.1
+      i: 0.2
       i_clamp: 10.0
