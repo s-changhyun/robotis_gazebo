@@ -9,7 +9,7 @@ gazebo:
       p: 1.0
       d: 0.0
       i: 0.1
-      i_clamp: 10.0
+      i_clamp: 1000.0
   r_hip_yaw:
     position:
       p: 50.0
@@ -20,7 +20,7 @@ gazebo:
       p: 1.0
       d: 0.0
       i: 0.1
-      i_clamp: 10.0
+      i_clamp: 1000.0
 
   l_hip_roll:
     position:
@@ -32,7 +32,7 @@ gazebo:
       p: 1.5
       d: 0.0
       i: 0.2
-      i_clamp: 10.0
+      i_clamp: 1000.0
   r_hip_roll:
     position:
       p: 60.0
@@ -43,7 +43,7 @@ gazebo:
       p: 1.5
       d: 0.0
       i: 0.2
-      i_clamp: 10.0
+      i_clamp: 1000.0
 
   l_hip_pitch:
     position:
@@ -55,7 +55,7 @@ gazebo:
       p: 1.0
       d: 0.0
       i: 0.3
-      i_clamp: 10.0
+      i_clamp: 1000.0
   r_hip_pitch:
     position:
       p: 70.0
@@ -66,7 +66,7 @@ gazebo:
       p: 1.0
       d: 0.0
       i: 0.3
-      i_clamp: 10.0
+      i_clamp: 1000.0
 
   l_knee:
     position:
@@ -78,7 +78,7 @@ gazebo:
       p: 1.0
       d: 0.0
       i: 0.3
-      i_clamp: 10.0
+      i_clamp: 1000.0
   r_knee:
     position:
       p: 70.0
@@ -89,7 +89,7 @@ gazebo:
       p: 1.0
       d: 0.0
       i: 0.3
-      i_clamp: 10.0
+      i_clamp: 1000.0
 
   l_ank_pitch:
     position:
@@ -101,7 +101,7 @@ gazebo:
       p: 2.5
       d: 0.0
       i: 0.3
-      i_clamp: 10.0
+      i_clamp: 1000.0
   r_ank_pitch:
     position:
       p: 70.0
@@ -112,7 +112,7 @@ gazebo:
       p: 2.5
       d: 0.0
       i: 0.3
-      i_clamp: 10.0
+      i_clamp: 1000.0
 
   l_ank_roll:
     position:
@@ -124,7 +124,7 @@ gazebo:
       p: 0.9
       d: 0.0
       i: 0.2
-      i_clamp: 10.0
+      i_clamp: 1000.0
   r_ank_roll:
     position:
       p: 45.0
@@ -135,4 +135,4 @@ gazebo:
       p: 0.9
       d: 0.0
       i: 0.2
-      i_clamp: 10.0
+      i_clamp: 1000.0
